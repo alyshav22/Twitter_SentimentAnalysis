@@ -13,11 +13,11 @@ def readTwitterData(twitterDataFile):
 
 def readSentimentData(sentimentDataFile):
     sentimentfile = open(sentimentDataFile, "r")	# open sentiment file
-    scores = {}  									# an empty dictionary
+    scores = {}  									# Initalize dictionary
     for line in sentimentfile:                      # loop over each word / sentiment score
         word, score = line.split("\t")  			# file is tab-delimited
         scores[word] = int(score)   				# convert score to an integer, store word / sentiment in dictionary
-    sentimentfile.close()							# close the file
+    sentimentfile.close()							# close file
     return scores									# return the dictionary
 
 
@@ -33,12 +33,12 @@ def main():
     tweets = readTwitterData(tweets_file)
     sentiments = {"-5": 0, "-4": 0, "-3": 0, "-2": 0, "-1": 0, "0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0}   #sentiment dictionary
 
-    for tweet in tweets:                            # loop over each tweet
+    for tweet in tweets:                                # loop over each tweet
         if 'text' in tweet:
-            tweetWords = tweet['text'].split()                  # split tweet into individual words
-            for word in tweetWords:                     # loop over idndividual words in each tween
+            tweetWords = tweet['text'].split()          # split tweet into individual words
+            for word in tweetWords:                     # loop over idndividual words in each tweet
                 word = word.strip('?:!.,;"!@')          # remove extraneous characters
-                word = word.replace("\n", "")            # remove end of line
+                word = word.replace("\n", "")           # remove end of line
                 if word in scores.keys():               # check if word is in sentiment dictionary
                     score = scores[word]                # check if word is in sentiment dictionary
                     sentiments[str(score)] += 1         # increment sentiment counter in dictionary
